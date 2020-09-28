@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TODO list</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="main.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  
+  <body>
+  <section class="todoapp">
+    <header class="header">
+      <h1>TODO LIST</h1>
+      <input class="new-todo"
+        autofocus autocomplete="off"
+        placeholder="〜　Type your tasks　〜"
+        v-model="newTodo"
+        @keyup.enter="addTodo">
+    </header>
+    
+    <section class="main" v-show="todos.length" v-cloak>
+      <label for="list-all"></label>
+      <ul class="todo-list">
+        <li v-for="todo in todoLists"
+        class="todo"
+        :key="todo.id"
+        :class="{ completed: todo.completed, editing: todo == editTodo }">
+        <div class="view">
+          <p v-if="!edit" class="border p-2 bg-light" @dblclick="editTodo">{{ todo.title }}
+          <input class="list" type="checkbox" v-model="todo.completed" class="allDone"></p>
+          <input v-else type="text" class="form-control" v-model="todo.title" @blur="edit = false"  >
+        </div>
+      </li>
+      </ul>
+    <button class="clear-completed" @click="allRemoved" v-show="todos.length > remaining">
+ALL DELETE
+    </button>
+    </section>
+    
+  <footer class="footer" v-show="todos.length" v-cloak>
+    <span class="todo-count">
+      <strong>{{ remaining }}</strong> {{ remaining | case }} uncomplete
+    </span>
+    <ul class="filters">
+      <li ><a href="#/all" :class="{ selected: visibility == 'all' } ">ALL</a></li>
+      <li ><a href="#/active" :class="{ selected: visibility == 'active' } ">ACTIVE</a></li>
+      <li ><a href="#/completed" :class="{ selected: visibility == 'completed' } ">COMPLETED</a></li>
+    </ul>
+  </footer>
+</section>
+  
+   
+  
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-analytics.js"></script>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="main.js"></script>
+  </body>
+</html>
